@@ -82,6 +82,7 @@ The tasks are in order of importance.
 - The commands run in Git Bash on Windows, because that's what we test on.
 - The start command builds the container images on our machine. It must not need a registry login.
 - Deploy the API, Keycloak, Postgres, MinIO (S3-compatible storage), the nightly job and your monitoring.
+- The official MinIO images are no longer published. Use another build, like `bitnamilegacy/minio`.
 - Passwords and keys aren't in git or in the container images. Your start command can create them. The test user in `keycloak/realm-export.json` can stay.
 - Every pod you write has CPU and memory limits. Long-running pods also have health checks. For charts you install, the defaults are fine.
 - Postgres and MinIO keep their data when their pod restarts.
