@@ -1,0 +1,19 @@
+# Keycloak - OAuth2 server for JWT auth
+# docker compose up -d
+# then: ./mvnw spring-boot:run
+# open http://localhost:8080, sign in with user/password
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.2
+    command:
+      - "start-dev"
+      - "--import-realm"
+      - "--http-port=8081"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8180:8081"
+    volumes:
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json

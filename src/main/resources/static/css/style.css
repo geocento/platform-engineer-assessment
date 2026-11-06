@@ -1,0 +1,64 @@
+/* map + Tabler overrides */
+* { box-sizing: border-box; }
+
+.hidden { display: none !important; }
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(0,0,0,0.1);
+    border-top-color: #206bc4;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.spinner-wrap { display: flex; align-items: center; gap: 0.5rem; }
+
+/* map needs explicit height */
+#map {
+    min-height: 500px;
+    height: calc(100vh - 120px);
+}
+
+.leaflet-container {
+    font-family: inherit;
+}
+
+.leaflet-draw-toolbar a {
+    background-color: #f8fafc !important;
+}
+
+/* product list layout */
+#product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+#product-list .card {
+    margin-bottom: 0;
+}
+
+#product-list .error {
+    color: #d63939;
+}
+
+.product-card .thumb {
+    width: 100%;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}

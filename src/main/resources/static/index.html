@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satellite imagery product discovery</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="d-flex flex-column">
+    <div id="login-screen" class="page page-center">
+        <div class="container container-tight py-4">
+            <div class="card card-md">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-2">Product discovery</h1>
+                    <p id="login-intro" class="text-secondary text-center mb-4">Sign in to search satellite imagery by area.</p>
+                    <p id="login-status" class="text-muted mb-3" aria-live="polite">
+                        <span class="spinner-wrap"><span class="spinner"></span> Checking…</span>
+                    </p>
+                    <div id="keycloak-login" class="hidden">
+                        <button type="button" id="login-btn" class="btn btn-primary w-100">Sign in with Keycloak</button>
+                    </div>
+                    <div id="basic-login" class="hidden">
+                        <form id="basic-login-form">
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-username">Username</label>
+                                <input type="text" id="basic-username" class="form-control" placeholder="e.g. user" required autocomplete="username" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-password">Password</label>
+                                <input type="password" id="basic-password" class="form-control" placeholder="e.g. password" required autocomplete="current-password" />
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                        </form>
+                    </div>
+                    <p id="login-error" class="text-danger small mt-2" aria-live="polite"></p>
+                    <p class="text-muted small text-center mt-3 mb-0">No Keycloak? Use <kbd>user</kbd> / <kbd>password</kbd></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-screen" class="hidden">
+        <header class="navbar navbar-expand-md navbar-light d-print-none">
+            <div class="container-xl">
+                <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">Satellite imagery discovery</h1>
+                <div class="navbar-nav flex-row order-md-last">
+                    <span id="user-name" class="nav-link px-2 text-muted"></span>
+                    <button type="button" id="logout-btn" class="btn btn-outline-primary btn-sm">Sign out</button>
+                </div>
+            </div>
+        </header>
+        <div class="page-wrapper">
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row g-3">
+                        <aside class="col-md-4 col-lg-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 class="card-title">Area of interest</h2>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-muted small mb-2">Draw on the map or paste GeoJSON. <a id="paste-example" href="#">Paste example</a></p>
+                                    <label for="aoi-json" class="sr-only">GeoJSON Polygon</label>
+                                    <textarea id="aoi-json" class="form-control font-monospace" placeholder='{"type":"Polygon","coordinates":[[[lon,lat],[lon,lat],...]]}' rows="5" aria-label="GeoJSON Polygon"></textarea>
+                                    <div class="mt-3 d-flex gap-2">
+                                        <button type="button" id="search-btn" class="btn btn-primary">Search products</button>
+                                        <button type="button" id="clear-btn" class="btn btn-outline-secondary">Clear map</button>
+                                    </div>
+                                </div>
+                                <div class="card-header">
+                                    <h2 class="card-title">Products</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div id="product-list"></div>
+                                </div>
+                            </div>
+                        </aside>
+                        <div class="col-md-8 col-lg-9">
+                            <div id="map" class="rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/keycloak-js@25.0.2/dist/keycloak.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
